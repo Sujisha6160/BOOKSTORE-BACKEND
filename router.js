@@ -1,16 +1,15 @@
-const express = require("express")
-const { registerController, loginController } = require("./controller/userController")
-const { addBookcontroller } = require("./controller/bookController")
+const express = require("express");
+const { registerController, loginController } = require("./controller/userController");
+const { addBookcontroller } = require("./controller/bookController");
+const jwtMiddleware = require("./db/model/middlewares/jwtMiddleware"); // Import JWT middleware
 
-// const userController = require("./controller/userController")
+const router = express.Router();
 
-const router = express.Router()
-// resgister
-router.post("/register",   registerController)
+// Public Routes
+router.post("/register", registerController);
+router.post("/login", loginController);
 
-// login
-router.post("/login",  loginController)
-// addbook
-router.post("/add-book", addBookcontroller)
+// Protected Routes (JWT required)
+router.post("/add-book", jwtMiddleware, addBookcontroller);
 
-module.exports = router
+module.exports = router;
