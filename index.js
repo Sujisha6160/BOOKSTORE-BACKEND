@@ -1,7 +1,7 @@
-// Import dotenv
-require("dotenv").config() //Loads .env file contents into process.env by default
+// 7. import dotenv
+require("dotenv").config() // loads .env file contents into process.env by default
 
-// 1.Import express
+// 1. import express
 const express = require("express")
 
 // 5. import cors
@@ -10,33 +10,37 @@ const cors = require("cors")
 // 8. import routes
 const router = require("./router")
 
-// 11. Import connection file
+// 11. import connection file
 require("./db/connection")
 
-// 2.Create server
+// 2. create server
 const bookStoreServer = express()
 
-//6. tell server to use cors
+
+// 6. tell server to use cors
 bookStoreServer.use(cors())
 
-// 10. Parse Request / Middleware
+// 10. parse request  //middleware
 bookStoreServer.use(express.json())
 
-//9. tell server to use router
+// 9. tell server to use router
 bookStoreServer.use(router)
 
-// 3.Create port
+bookStoreServer.use("/imguploads",express.static("./imguploads"))
+
+// 3. create port
 const PORT = 3000
 
-// 4.tell server to listen
+// 4. tell server to listen
 bookStoreServer.listen(PORT,()=>{
-    console.log(`BookStore Server Started Running successfully at Port Number : ${PORT}, waiting for Client Request `);
+    console.log(`Bookstore Server started Running Successfully at Port number : ${PORT}, Waiting forClient Request`);
+    
 })
 
 bookStoreServer.get("/",(req, res)=>{
-    res.status(200).send(`BookStore Server Started Running successfully and waiting for Client Request `)
-}) 
+    res.status(200).send(`Bookstore Server Started Running succesfully and waiting for Client Request`)
+})
 
-// bookStoreServer.post("/",(req, res)=>{
-//     res.status(200).send(`POST REQUEST `)
+// bookStoreServer.post("/", (req, res)=>{
+//     res.status(200).send(`POST REQUEST`)
 // })
